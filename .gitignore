@@ -1,0 +1,9 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+/.vscode/
+/data_Nono_windows_x86_64/
+/.vs/
+export_presets.cfg
+*.uid
+*.import
