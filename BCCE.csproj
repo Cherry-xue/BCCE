@@ -12,6 +12,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 	  <Content Include="bcce\localization\zhs\cards.json" />
+	  <Content Include="bcce\localization\zhs\card_keywords.json" />
 	  <Content Include="bcce\localization\zhs\powers.json" />
 	</ItemGroup>
 	<ItemGroup>

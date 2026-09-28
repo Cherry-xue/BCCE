@@ -36,9 +36,9 @@ public sealed class AphoniaPower : SilentPower
             IReadOnlyList<CardModel> cards = PileType.Hand.GetPile(Owner.Player).Cards;
             if (cards.Count != 0)
             {
-                cardamount = cards.Count;
+                cardamount = cards.Count * Amount;
                 Flash();
-                await PowerCmd.Apply<DexterityPower>(choiceContext, Owner, cardamount, Owner, null);
+                await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), Owner, cardamount, Owner, null);
             }
             else
             {

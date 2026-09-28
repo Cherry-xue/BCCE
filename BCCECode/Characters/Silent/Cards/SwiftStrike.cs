@@ -14,7 +14,7 @@ namespace BCCE.BCCECode.Characters.Silent.Cards;
 public class SwiftStrike : SilentCard
 {
     public SwiftStrike() : base(0, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies, true)
-    //定义卡牌基本属性：0能量，攻击，罕见稀有度，目标为所有敌人,图鉴可见
+    //定义卡牌基本属性：0能量，攻击，罕见，目标为所有敌人,图鉴可见
     {
     }
     protected override IEnumerable<DynamicVar> CanonicalVars =>

@@ -13,8 +13,8 @@ namespace BCCE.BCCECode.Characters.Silent.Cards;
 // 金蛇狂咬-随机对敌人造成2点伤害8次，每次攻击给予等量于造成伤害的中毒。
 public class GoldenSnakeBites : SilentCard
 {
-    public GoldenSnakeBites() : base(2, CardType.Attack, CardRarity.Rare, TargetType.RandomEnemy, true)
-    //定义卡牌基本属性：2能量，攻击，稀有稀有度，目标为所有敌人,图鉴可见
+    public GoldenSnakeBites() : base(3, CardType.Attack, CardRarity.Rare, TargetType.RandomEnemy, true)
+    //定义卡牌基本属性：3能量，攻击，稀有，目标为所有敌人,图鉴可见
     {
     }
     public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];

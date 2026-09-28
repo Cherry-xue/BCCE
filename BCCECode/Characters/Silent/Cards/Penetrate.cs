@@ -12,14 +12,13 @@ namespace BCCE.BCCECode.Characters.Silent.Cards;
 public class Penetrate : SilentCard
 {
     public Penetrate() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true)
-    //定义卡牌基本属性：1能量，攻击，常见稀有度，目标为任意敌人,图鉴可见
+    //定义卡牌基本属性：1能量，攻击，常见，目标为任意敌人,图鉴可见
     {
     }
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(2, ValueProp.Move),
-        new CardsVar(1),
-        new EnergyVar(1)
+        new CardsVar(1)
     ];
     //定义可变参数:伤害数值,初始为1;卡牌数量，初始值为1;能量数值，初始值为1
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
@@ -33,7 +32,6 @@ public class Penetrate : SilentCard
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay).Targeting(cardPlay.Target).WithHitCount(2)
             .WithHitFx("vfx/vfx_attack_slash", null, "blunt_attack.mp3")
             .Execute(choiceContext);
-        await PowerCmd.Apply<EnergyNextTurnPower>(choiceContext, Owner.Creature, DynamicVars.Energy.BaseValue, Owner.Creature, this);
         await PowerCmd.Apply<DrawCardsNextTurnPower>(choiceContext, Owner.Creature, DynamicVars.Cards.BaseValue, Owner.Creature, null);
     }
     //卡牌效果:

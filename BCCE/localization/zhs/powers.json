@@ -1,8 +1,5 @@
 {
-  "BCCE_POWER_UPGRADED_APHONIA_POWER.title": "无声",
-  "BCCE_POWER_UPGRADED_APHONIA_POWER.description": "在你的回合结束时，每有一张手牌，就获得2点敏捷，下个回合结束时，失去等量敏捷。",
-  "BCCE_POWER_UPGRADED_APHONIA_POWER.smartDescription": "在你的回合结束时，每有一张手牌，就获得2点敏捷，下个回合结束时，失去等量敏捷。",
   "BCCE_POWER_APHONIA_POWER.title": "无声",
   "BCCE_POWER_APHONIA_POWER.description": "在你的回合结束时，每有一张手牌，就获得1点敏捷，下个回合结束时，失去等量敏捷。",
-  "BCCE_POWER_APHONIA_POWER.smartDescription": "在你的回合结束时，每有一张手牌，就获得1点敏捷，下个回合结束时，失去等量敏捷。"
+  "BCCE_POWER_APHONIA_POWER.smartDescription": "在你的回合结束时，每有一张手牌，就获得{Amount}点敏捷，下个回合结束时，失去等量敏捷。"
 }

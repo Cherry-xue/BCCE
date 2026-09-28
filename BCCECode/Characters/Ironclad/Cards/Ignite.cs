@@ -13,7 +13,7 @@ namespace BCCE.BCCECode.Characters.Ironclad.Cards;
 public class Ignite : IroncladCard
 {
     public Ignite() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self, true)
-    //定义卡牌基本属性：1能量，能力，常见稀有度，目标为自己,图鉴可见
+    //定义卡牌基本属性：1能量，能力，常见，目标为自己,图鉴可见
     {
     }
     public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
