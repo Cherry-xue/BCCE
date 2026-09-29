@@ -1,3 +1,4 @@
+using BCCE.BCCECode.Characters.Ironclad.Powers;
 using BCCE.BCCECode.Characters.Silent.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;

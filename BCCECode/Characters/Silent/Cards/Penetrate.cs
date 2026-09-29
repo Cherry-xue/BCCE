@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace BCCE.BCCECode.Characters.Silent.Cards;
 
-// 穿透-造成2点伤害2次，下回合获得1点能量、抽1张牌。
+// 穿透-造成2点伤害2次，下回合抽1张牌。
 public class Penetrate : SilentCard
 {
     public Penetrate() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy, true)
@@ -23,7 +23,7 @@ public class Penetrate : SilentCard
     //定义可变参数:伤害数值,初始为1;卡牌数量，初始值为1;能量数值，初始值为1
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [
-        EnergyHoverTip,
+        EnergyHoverTip
     ];
     //定义提示:提示能量的相关信息
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

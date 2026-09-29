@@ -48,11 +48,7 @@ public class Phantom : SilentCard
         }
         for (int i = 0; i < handSize; i++)
         {
-            //DynamicVars.Block.BaseValue = Owner.Creature.GetPowerAmount<DexterityPower>() + 1;
-            //if (DynamicVars.Block.BaseValue > 0)
-            //{
-                await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-            //}
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
         }
     }
     //卡牌效果:

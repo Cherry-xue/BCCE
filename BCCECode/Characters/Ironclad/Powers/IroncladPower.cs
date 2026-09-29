@@ -4,7 +4,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace BCCE.BCCECode.Characters.Ironclad.Powers;
 
 [RegisterPower(Inherit = true)]
-public abstract class SilentPower : ModPowerTemplate
+public abstract class IroncladPower : ModPowerTemplate
 {
     public override PowerAssetProfile AssetProfile => new(
         IconPath: $"res://BCCE/Images/Powers/{GetType().Name}.png",
