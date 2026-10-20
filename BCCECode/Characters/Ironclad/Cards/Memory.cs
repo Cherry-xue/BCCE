@@ -52,6 +52,8 @@ public class Memory : IroncladCard
     protected override void OnUpgrade()
     {
         AddKeyword(CardKeyword.Retain);
+        EnergyCost.UpgradeBy(-1);
+        DynamicVars.Block.UpgradeValueBy(3m);
     }
-    //升级效果:添加保留关键词
+    //升级效果:添加保留关键词,减少1点能量消耗,格挡数值增加3
 }

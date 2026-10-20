@@ -21,11 +21,6 @@ public class Penetrate : SilentCard
         new CardsVar(1)
     ];
     //定义可变参数:伤害数值,初始为1;卡牌数量，初始值为1;能量数值，初始值为1
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-    [
-        EnergyHoverTip
-    ];
-    //定义提示:提示能量的相关信息
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");

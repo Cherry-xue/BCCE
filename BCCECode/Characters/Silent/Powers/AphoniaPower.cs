@@ -20,7 +20,7 @@ public sealed class AphoniaPower : SilentPower
     public override PowerStackType StackType => PowerStackType.Counter;
     //定义叠加类型：计数器
     public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
-    //定义实例类型：单例
+    //定义实例类型：独立实例
     public override int DisplayAmount => cardamount;
     //定义显示数值:玩家的手牌数量
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>

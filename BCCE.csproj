@@ -29,6 +29,9 @@
 			<HintPath>RitsuLib\STS2-RitsuLib.dll</HintPath>
 		</Reference>
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="BCCECode\Patch\" />
+	</ItemGroup>
 
 
 

@@ -14,7 +14,7 @@ namespace BCCE.BCCECode.Characters.Silent.Cards;
 // 打击-对目标造成伤害
 public class TestCard : SilentCard
 {
-    public TestCard() : base(0, CardType.Attack, CardRarity.Token, TargetType.AnyEnemy, true)
+    public TestCard() : base(0, CardType.Attack, CardRarity.Token, TargetType.AnyEnemy, false)
     //定义卡牌基本属性：0能量，攻击，基础稀有度，目标为任意敌人
     {
     }
