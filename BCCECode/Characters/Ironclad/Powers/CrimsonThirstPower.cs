@@ -12,8 +12,6 @@ public sealed class CrimsonThirstPower : IroncladPower
     //定义能力类型：增益
     public override PowerStackType StackType => PowerStackType.Counter;
     //定义叠加类型：计数器
-    public override int DisplayAmount => Amount;
-    //定义显示数值:每有一名敌人死亡时获得的最大生命值
     public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
     {
         if (wasRemovalPrevented || creature.Side == Owner.Side || !creature.Powers.All(p => p.ShouldOwnerDeathTriggerFatal()))

@@ -16,8 +16,6 @@ public sealed class TidePower : RegentPower
     //定义能力类型：减益
     public override PowerStackType StackType => PowerStackType.Counter;
     //定义叠加类型：计数器
-    public override int DisplayAmount => Amount;
-    //定义显示数值:失去的力量层数
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [
         HoverTipFactory.FromPower<StrengthPower>()

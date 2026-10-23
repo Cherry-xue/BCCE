@@ -17,7 +17,7 @@ public sealed class MemoryPower : IroncladPower
 {
     public override PowerType Type => PowerType.Buff;
     //定义能力类型：增益
-    public override PowerStackType StackType => PowerStackType.Counter;
+    public override PowerStackType StackType => PowerStackType.Single;
     //定义叠加类型：计数器
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [

@@ -2,10 +2,12 @@ using BCCE.BCCECode.Characters.Ironclad.Powers;
 using BCCE.BCCECode.Characters.Necrobinder.Powers;
 using BCCE.BCCECode.Characters.Regent.Powers;
 using BCCE.BCCECode.Characters.Silent.Powers;
+using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
@@ -107,7 +109,7 @@ public static class RandomPowerPool
         (ctx, owner, applier, card) => PowerCmd.Apply<MasterPlannerPower>(ctx, owner, 1, applier, card),
 
         // 夜魇-在下个回合，将所选牌的3张复制品加入你的手牌。（层数影响：下回合加入手牌的复制品数量）[下回合抽牌时触发后移除]
-        (ctx, owner, applier, card) => PowerCmd.Apply<NightmarePower>(ctx, owner, 1, applier, card),
+        (ctx, owner, applier, card) => ApplyNightmare(ctx, owner, applier, card),
 
         // 毒雾-在你的回合开始时，给予所有敌人2层中毒。（层数影响：回合开始时给予所有敌人的中毒层数）[永久]
         (ctx, owner, applier, card) => PowerCmd.Apply<NoxiousFumesPower>(ctx, owner, 1, applier, card),
@@ -317,7 +319,7 @@ public static class RandomPowerPool
         (ctx, owner, applier, card) => PowerCmd.Apply<HibernatePower>(ctx, owner, 1, applier, card),
 
         // 模仿学习-当另一名玩家打出能力牌时，你打出一张该牌的复制品。（层数影响：层数不影响效果）[每打出一张牌减1层，持续层数次]
-        (ctx, owner, applier, card) => PowerCmd.Apply<ImitationLearningPower>(ctx, owner, 1, applier, card),
+        //(ctx, owner, applier, card) => PowerCmd.Apply<ImitationLearningPower>(ctx, owner, 1, applier, card),
 
         // 迭代-每回合你第一次抽到状态牌时，抽更多牌。（层数影响：抽到状态牌时额外抽牌数）[永久]
         (ctx, owner, applier, card) => PowerCmd.Apply<IterationPower>(ctx, owner, 1, applier, card),
@@ -493,4 +495,17 @@ public static class RandomPowerPool
         .Concat(Monster)
         .Concat(BCCE)
         .ToList();
+
+    //夜魇在施加后必须指定被复制的牌，否则下回合触发时会因取不到牌而报错，因此单独处理
+    private static async Task ApplyNightmare(PlayerChoiceContext choiceContext, Creature owner, Creature applier, CardModel cardSource)
+    {
+        IEnumerable<CardModel> cards = await CardSelectCmd.FromHand(choiceContext, owner.Player, new CardSelectorPrefs(new LocString("cards", cardSource.Id.Entry + ".selectionScreenPrompt"), 1), null, cardSource);
+        CardModel selectedCard = cards.FirstOrDefault();
+        if (selectedCard == null)
+        {
+            return;
+        }
+        NightmarePower power = await PowerCmd.Apply<NightmarePower>(choiceContext, owner, 1m, applier, cardSource);
+        power?.SetSelectedCard(selectedCard);
+    }
 }

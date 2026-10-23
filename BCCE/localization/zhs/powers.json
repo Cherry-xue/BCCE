@@ -10,7 +10,7 @@
   "BCCE_POWER_HELPLESS_WALK_POWER.smartDescription": "本回合内，你每打出3张[gold]灵魂[/gold]，获得{energyPrefix:energyIcons(1)}。",
   "BCCE_POWER_CHARGED_STRIKE_POWER.title": "聚力打击",
   "BCCE_POWER_CHARGED_STRIKE_POWER.description": "在你的回合结束时，本回合每使用1点{energyPrefix:energyIcons(1)}，获得2点[gold]力量[/gold]，下个回合结束时，失去等量[gold]力量[/gold]。",
-  "BCCE_POWER_CHARGED_STRIKE_POWER.smartDescription": "在你的回合结束时，本回合每使用1点{energyPrefix:energyIcons(1)}，获得{Amount}点[gold]力量[/gold]，下个回合结束时，失去等量[gold]力量[/gold]。[gold]将会获得{StrengthAmounts:diff()}点力量[/gold]",
+  "BCCE_POWER_CHARGED_STRIKE_POWER.smartDescription": "在你的回合结束时，本回合每使用1点{energyPrefix:energyIcons(1)}，获得{Amount}点[gold]力量[/gold]，下个回合结束时，失去等量[gold]力量[/gold]。[blue]将会获得{StrengthAmounts:diff()}点力量[/blue]",
   "BCCE_POWER_PREDATION_POWER.title": "弱肉强食",
   "BCCE_POWER_PREDATION_POWER.description": "每当你获得[gold]力量[/gold]时，使随机一名敌人失去等量[gold]力量[/gold]1回合。",
   "BCCE_POWER_PREDATION_POWER.smartDescription": "每当你获得[gold]力量[/gold]时，使随机一名敌人失去等量[gold]力量[/gold]{Amount}回合。",
@@ -31,5 +31,21 @@
   "BCCE_POWER_TIDE_POWER.smartDescription": "本回合失去了{Amount}点[gold]力量[/gold]，回合结束时返还。",
   "BCCE_POWER_SATELLITE_CLUSTER_POWER.title": "卫星集群",
   "BCCE_POWER_SATELLITE_CLUSTER_POWER.description": "本回合每获得或失去1点辉星，铸造、获得格挡。",
-  "BCCE_POWER_SATELLITE_CLUSTER_POWER.smartDescription": "本回合每获得或失去1点辉星，[gold]铸造[/gold]{Amount}、获得{Block:diff()}点[gold]格挡[/gold]。"
+  "BCCE_POWER_SATELLITE_CLUSTER_POWER.smartDescription": "本回合每获得或失去1点辉星，[gold]铸造[/gold]{Amount}、获得{Block:diff()}点[gold]格挡[/gold]。",
+  "BCCE_POWER_ASTRONOMICAL_NUMBER_POWER.title": "天文数字",
+  "BCCE_POWER_ASTRONOMICAL_NUMBER_POWER.description": "你每花费3点辉星，对敌人造成的伤害提高10%。",
+  "BCCE_POWER_ASTRONOMICAL_NUMBER_POWER.smartDescription": "你每花费{StarsPerStack:diff()}点辉星，对敌人造成的伤害就提高{DamageBonus:diff()}%。\n[blue]还要花费{RemainingStars:diff()}点{singleStarIcon}提高伤害。[/blue]",
+  "BCCE_POWER_OPEN_SOURCE_POWER.title": "开源",
+  "BCCE_POWER_OPEN_SOURCE_POWER.description": "观看抽牌堆时，卡牌按实际发牌顺序排列。",
+  "BCCE_POWER_OPEN_SOURCE_POWER.smartDescription": "观看抽牌堆时，卡牌按实际发牌顺序排列。",
+  "BCCE_POWER_VARIABLE_SUBSTITUTION_POWER.title": "变量置换",
+  "BCCE_POWER_VARIABLE_SUBSTITUTION_POWER.description": "每生成5个充能球，获得2点集中。每有5点集中，在你的回合开始时，额外获得1点能量。",
+  "BCCE_POWER_VARIABLE_SUBSTITUTION_POWER.smartDescription": "每生成{OrbsPerStack:diff()}个充能球，获得{FocusGain:diff()}点[gold]集中[/gold]。每有{FocusPerEnergy:diff()}点[gold]集中[/gold]，在你的回合开始时，额外获得{energyPrefix:energyIcons(1)}。\n[blue]回合开始时额外获得{PreviewEnergy:diff()}点{energyPrefix:energyIcons(1)}[/blue]",
+  "BCCE_POWER_HALLOWEEN_POWER.title": "万圣夜",
+  "BCCE_POWER_HALLOWEEN_POWER.description": "在敌方回合，奥斯提的生命值将被减少至0或以下时将其复活。",
+  "BCCE_POWER_HALLOWEEN_POWER.smartDescription": "在敌方回合，当[gold]奥斯提[/gold]的生命值将被减少至[blue]0[/blue]或以下时，改为将其回复到其[gold]最大生命值[/gold]的[blue]50%[/blue]，第二次则为[blue]25%[/blue]。\n[gold]重复打出刷新层数至两层[/gold]",
+  "BCCE_POWER_OUT_OF_BODY_POWER.title": "出窍",
+  "BCCE_POWER_OUT_OF_BODY_POWER.description": "[gold]攻击[/gold]牌获得[gold]虚无[/gold]。",
+  "BCCE_POWER_OUT_OF_BODY_POWER.smartDescription": "[gold]攻击[/gold]牌获得[gold]虚无[/gold]。"
+
 }
