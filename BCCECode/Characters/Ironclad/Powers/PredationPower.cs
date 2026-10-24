@@ -48,7 +48,6 @@ public sealed class PredationPower : IroncladPower
             return;
         }
         Creature enemy = Owner.Player.RunState.Rng.CombatTargets.NextItem(enemies);
-        await PowerCmd.Apply<StrengthPower>(choiceContext, enemy, -amount, Owner, null);
         if (Amount == 1)
         {
             WeaklingPower weakling = await PowerCmd.Apply<WeaklingPower>(choiceContext, enemy, amount, Owner, null);
@@ -77,5 +76,5 @@ public sealed class PredationPower : IroncladPower
             }
         }
     }
-    //在能力层数变化后触发：若自己获得力量，则使随机一名敌人失去等量力量，并按回合奇偶交替施加弱者能力
+    //在能力层数变化后触发：若自己获得力量，则按回合奇偶向随机敌人施加弱者，由弱者负责减力量与到期返还
 }

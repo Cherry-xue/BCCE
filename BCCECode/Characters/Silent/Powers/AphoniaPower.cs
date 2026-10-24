@@ -14,7 +14,7 @@ namespace BCCE.BCCECode.Characters.Silent.Powers;
 public sealed class AphoniaPower : SilentPower
 {
     private int cardamount = 0;
-    //定义一个私有字段cardamount，用于存储玩家的手牌数量
+    //定义一个私有字段cardamount，用于显示本次结算授予的临时敏捷数量
     public override PowerType Type => PowerType.Buff;
     //定义能力类型：增益
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -22,7 +22,7 @@ public sealed class AphoniaPower : SilentPower
     public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
     //定义实例类型：独立实例
     public override int DisplayAmount => cardamount;
-    //定义显示数值:玩家的手牌数量
+    //定义显示数值：最近一次结算授予的临时敏捷数量
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [
         HoverTipFactory.FromPower<DexterityPower>()
@@ -32,20 +32,15 @@ public sealed class AphoniaPower : SilentPower
     {
         if (participants.Contains(Owner))
         {
-            await PowerCmd.Apply<DexterityPower>(choiceContext, Owner, -cardamount, Owner, null);
             IReadOnlyList<CardModel> cards = PileType.Hand.GetPile(Owner.Player).Cards;
-            if (cards.Count != 0)
+            cardamount = cards.Count * Amount;
+            if (cardamount > 0)
             {
-                cardamount = cards.Count * Amount;
                 Flash();
-                await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), Owner, cardamount, Owner, null);
-            }
-            else
-            {
-                cardamount = 0;
+                await PowerCmd.Apply<AphoniaDexterityPower>(choiceContext, Owner, cardamount, Owner, null);
             }
             InvokeDisplayAmountChanged();
         }
     }
-    //在回合结束前触发的事件中，检查当前回合是否为玩家的回合，如果是，则根据手牌数量调整敏捷值，并更新显示数值
+    //在自己的回合结束前触发：按当前手牌数授予独立的临时敏捷；旧敏捷由临时能力在更早的结束阶段撤回
 }

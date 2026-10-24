@@ -8,7 +8,6 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.ValueProps;
 
 namespace BCCE.BCCECode.Characters.Ironclad.Powers;
 
@@ -17,8 +16,6 @@ public sealed class ChargedStrikePower : IroncladPower
 {
     private int strengthamount = 0;
     //定义一个私有字段strengthamount，用于存储本回合结束时给予的力量数值
-    private bool isGranted = false;
-    //定义一个私有字段isGranted，用于标记是否已经在回合结束时给予过力量
     public override PowerType Type => PowerType.Buff;
     //定义能力类型：增益
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -31,41 +28,34 @@ public sealed class ChargedStrikePower : IroncladPower
     [
         new DynamicVar("StrengthAmounts", 0m)
     ];
+    //定义可变参数：本回合结束时预计获得的力量数值
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [
         HoverTipFactory.FromPower<StrengthPower>()
     ];
     //定义额外的悬停提示：显示力量的悬停提示
-    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         int energySpent = CombatManager.Instance.History.Entries.OfType<EnergySpentEntry>().Where(e => e.Actor == Owner && e.HappenedThisTurn(CombatState)).Sum(e => e.Amount);
         strengthamount = energySpent * Amount;
         DynamicVars["StrengthAmounts"].BaseValue = strengthamount;
         InvokeDisplayAmountChanged();
-    }//在卡牌打出后触发：统计本回合使用的能量并更新显示数值
+        return Task.CompletedTask;
+    }
+    //在卡牌打出后触发：统计本回合使用的能量并更新预计获得的力量，不负责记录已经授予的临时力量
     public override async Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
         if (participants.Contains(Owner))
         {
-            if (!isGranted)
+            int energySpent = CombatManager.Instance.History.Entries.OfType<EnergySpentEntry>().Where(e => e.Actor == Owner && e.HappenedThisTurn(CombatState)).Sum(e => e.Amount);
+            strengthamount = energySpent * Amount;
+            if (strengthamount > 0)
             {
-                int energySpent = CombatManager.Instance.History.Entries.OfType<EnergySpentEntry>().Where(e => e.Actor == Owner && e.HappenedThisTurn(CombatState)).Sum(e => e.Amount);
-                strengthamount = energySpent * Amount;
-                if (strengthamount != 0)
-                {
-                    Flash();
-                    await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, strengthamount, Owner, null);
-                }
-                isGranted = true;
-                DynamicVars["StrengthAmounts"].BaseValue = strengthamount;
-                InvokeDisplayAmountChanged();
+                Flash();
+                await PowerCmd.Apply<ChargedStrikeStrengthPower>(choiceContext, Owner, strengthamount, Owner, null);
             }
-            else
-            {
-                await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, -strengthamount, Owner, null);
-                await PowerCmd.Remove<ChargedStrikePower>(Owner);
-            }
+            await PowerCmd.Remove(this);
         }
     }
-    //在回合结束前触发：第一次结算时统计本回合使用的能量并给予力量，下个回合结束时失去等量力量并移除本能力
+    //在回合结束前触发：按本回合消耗的能量授予独立的临时力量，然后仅移除本次聚力打击的待结算实例
 }
