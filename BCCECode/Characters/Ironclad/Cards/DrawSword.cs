@@ -12,7 +12,7 @@ namespace BCCE.BCCECode.Characters.Ironclad.Cards;
 // 拔剑-对所有敌人造成4点伤害，获得等于敌人意图攻击的最小伤害值一半的格挡。
 public class DrawSword : IroncladCard
 {
-    public DrawSword() : base(1, CardType.Attack, CardRarity.Common, TargetType.AllEnemies, true)
+    public DrawSword() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies, true)
     //定义卡牌基本属性：1能量，攻击，常见，目标为所有敌人,图鉴可见
     {
     }
@@ -23,7 +23,7 @@ public class DrawSword : IroncladCard
     //定义格挡效果的提示
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(4, ValueProp.Move),
+        new DamageVar(7, ValueProp.Move),
         new BlockVar(0, ValueProp.Unpowered)
     ];
     //定义可变参数:伤害数值,初始为4;格挡数值，初始值为0

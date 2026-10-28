@@ -17,9 +17,9 @@ public class LimberUp : NecrobinderCard
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new PowerVar<VigorPower>(4m),
-        new HealVar(4m)
+        new HealVar(6m)
     ];
-    //定义可变参数:活力数值，初始为4;治疗数值，初始为4
+    //定义可变参数:活力数值，初始为4;治疗数值，初始为6
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [
         HoverTipFactory.FromPower<VigorPower>()
@@ -36,7 +36,7 @@ public class LimberUp : NecrobinderCard
     //卡牌效果:获得活力；若奥斯提在场且存活，则为其回复生命。回复只作用于当前生命，不会提升奥斯提的最大生命
     protected override void OnUpgrade()
     {
-        DynamicVars.Heal.UpgradeValueBy(2m);
-        DynamicVars["VigorPower"].UpgradeValueBy(2m);
-    }//升级效果:治疗数值增加2,活力数值增加2
+        DynamicVars.Heal.UpgradeValueBy(4m);
+        DynamicVars["VigorPower"].UpgradeValueBy(3m);
+    }//升级效果:治疗数值增加4,活力数值增加3
 }

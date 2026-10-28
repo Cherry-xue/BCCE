@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace BCCE.BCCECode.Characters.Silent.Cards;
 
-// 虚影-丢弃所有手牌，每丢弃3张牌获得1点敏捷，每丢弃一张牌获得一次1点格挡。
+// 虚影-丢弃所有手牌，每丢弃3张牌获得1点敏捷，获得一次1点格挡。
 public class Phantom : SilentCard
 {
     public Phantom() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
@@ -46,7 +46,7 @@ public class Phantom : SilentCard
         {
             await PowerCmd.Apply<DexterityPower>(choiceContext, Owner.Creature, dexterityAmount, Owner.Creature, this);
         }
-        for (int i = 0; i < handSize; i++)
+        for (int i = 0; i < handSize / DynamicVars.Cards.IntValue; i++)
         {
             await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
         }

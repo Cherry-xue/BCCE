@@ -1,3 +1,4 @@
+using BCCE.BCCECode.Characters.Defect.Powers;
 using BCCE.BCCECode.Characters.Ironclad.Powers;
 using BCCE.BCCECode.Characters.Necrobinder.Powers;
 using BCCE.BCCECode.Characters.Regent.Powers;
@@ -465,7 +466,7 @@ public static class RandomPowerPool
     //定义BCCE自有能力：我们mod自己的增益，层数与时长的依据同样来自各自源码
     public static readonly IReadOnlyList<Applier> BCCE =
     [
-        // 聚力打击-在你的回合结束时，本回合每使用1点能量，获得力量，下个回合结束时，失去等量力量。（层数影响：本回合每使用1点能量给予的力量数值）[下个回合结束时失去力量并移除]
+        // 聚力打击-回合结束时按本回合花费的能量追加临时力量；下一回合若再次获得聚力打击则保留累计力量。（层数影响：每点能量给予的力量）[本实例结算后移除，累计力量在断连回合结束时失去]
         (ctx, owner, applier, card) => PowerCmd.Apply<ChargedStrikePower>(ctx, owner, 1, applier, card),
 
         // 猩红渴求-每当有一名不是“爪牙”的敌人死亡，获得最大生命值。（层数影响：每有一名敌人死亡时获得的最大生命值）[永久]
@@ -482,6 +483,21 @@ public static class RandomPowerPool
 
         // 奈何行-本回合内，你每打出3张灵魂，获得能量。（层数影响：每次触发获得的能量）[本回合结束移除]
         (ctx, owner, applier, card) => PowerCmd.Apply<HelplessWalkPower>(ctx, owner, 1, applier, card),
+
+        // 开源-观看抽牌堆时按实际发牌顺序显示。（层数影响：单一能力，不叠加效果）[永久]
+        (ctx, owner, applier, card) => PowerCmd.Apply<OpenSourcePower>(ctx, owner, 1, applier, card),
+
+        // 天文数字-每花费2点辉星，对敌人的攻击伤害提高10%。（层数影响：独立实例，默认参数固定）[永久]
+        (ctx, owner, applier, card) => PowerCmd.Apply<AstronomicalNumberPower>(ctx, owner, 1, applier, card),
+
+        // 卫星集群-本回合每获得或花费1点辉星，铸造2并获得1点格挡。（层数影响：铸造量等于层数，格挡为层数的一半；本条给予2层）[本回合结束移除]
+        (ctx, owner, applier, card) => PowerCmd.Apply<SatelliteClusterPower>(ctx, owner, 2, applier, card),
+
+        // 不明飞行物-任意友方玩家打出无色牌时，使随机敌人失去1点生命，不包含卡牌本体的无色牌三选一。（层数影响：每次触发的生命流失量）[永久]
+        (ctx, owner, applier, card) => PowerCmd.Apply<UnidentifiedFlyingObjectPower>(ctx, owner, 1, applier, card),
+
+        // 变量置换-每生成5个充能球获得2点集中，每4点集中在回合开始时额外获得1点能量。（层数影响：独立实例，默认参数固定）[永久]
+        (ctx, owner, applier, card) => PowerCmd.Apply<VariableSubstitutionPower>(ctx, owner, 1, applier, card),
     ];
     private static IReadOnlyList<Applier> _all;
 

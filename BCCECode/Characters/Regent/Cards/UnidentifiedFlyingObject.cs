@@ -73,10 +73,14 @@ public class UnidentifiedFlyingObject : RegentCard
         var selected = await CardSelectCmd.FromChooseACardScreen(choiceContext, cards, player, canSkip: false);
         if (selected != null && player.Creature.IsAlive && !CombatManager.Instance.IsOverOrEnding)
         {
-            await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Discard, Owner);
+            var result = await CardPileCmd.AddGeneratedCardToCombat(selected, PileType.Discard, Owner);
+            if (LocalContext.IsMe(player))
+            {
+                CardCmd.PreviewCardPileAdd(result);
+            }
         }
     }
-    //单个玩家的选择：必须从候选无色牌中选择1张，将其作为战斗生成牌放入该玩家的弃牌堆
+    //单个玩家的选择：将选中的无色牌加入自己的弃牌堆，并参照原版彼岸一瞥，在收牌玩家本机展示入堆预览动画
 
     protected override void OnUpgrade()
     {

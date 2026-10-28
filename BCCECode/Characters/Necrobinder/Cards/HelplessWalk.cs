@@ -10,8 +10,8 @@ namespace BCCE.BCCECode.Characters.Necrobinder.Cards;
 // 奈何行-本回合内，你每打出3张灵魂，获得1点能量。
 public class HelplessWalk : NecrobinderCard
 {
-    public HelplessWalk() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
-    //定义卡牌基本属性：2能量，技能，罕见，目标为自身,图鉴可见
+    public HelplessWalk() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
+    //定义卡牌基本属性：1能量，技能，罕见，目标为自身,图鉴可见
     {
     }
     public override List<CardKeyword> CanonicalKeywords =>

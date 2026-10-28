@@ -1,7 +1,7 @@
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -37,17 +37,17 @@ public sealed class AstronomicalNumberPower : RegentPower
         return new Data();
     }
     //初始化内部数据：返回一个新的Data对象
-    public override Task AfterStarsSpent(int amount, Player spender)
+    public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (spender == Owner.Player)
+        if (cardPlay.Player == Owner.Player && cardPlay.IsLastInSeries && cardPlay.Resources.StarsSpent > 0)
         {
-            GetInternalData<Data>().starsSpent += amount;
+            GetInternalData<Data>().starsSpent += cardPlay.Resources.StarsSpent;
             RefreshVars();
             InvokeDisplayAmountChanged();
         }
         return Task.CompletedTask;
     }
-    //在花费辉星后触发：累计已花费的辉星数量并刷新显示用的变量
+    //在整张牌结算后触发：累计实际花费的辉星并刷新增伤；重放序列只在最后一次计数，本次花费不增强该牌自身的伤害
     private void RefreshVars()
     {
         int perStack = (int)DynamicVars["StarsPerStack"].BaseValue;

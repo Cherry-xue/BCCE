@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace BCCE.BCCECode.Characters.Ironclad.Powers;
 
-// 聚力打击-在你的回合结束时，本回合每使用1点能量，获得2点力量，下个回合结束时，失去等量力量
+// 聚力打击-独立记录每次聚力，在回合结束时按能量消耗追加力量；也作为旧临时力量的续接条件
 public sealed class ChargedStrikePower : IroncladPower
 {
     private int strengthamount = 0;
@@ -57,5 +57,5 @@ public sealed class ChargedStrikePower : IroncladPower
             await PowerCmd.Remove(this);
         }
     }
-    //在回合结束前触发：按本回合消耗的能量授予独立的临时力量，然后仅移除本次聚力打击的待结算实例
+    //在回合结束前触发：按本回合消耗的能量增加汇总临时力量，然后仅移除本次聚力打击的待结算实例
 }

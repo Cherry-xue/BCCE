@@ -12,7 +12,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace BCCE.BCCECode.Characters.Ironclad.Powers;
 
-// 聚力打击的临时力量-记录本次获得的力量，在下个己方回合结束前撤回。
+// 聚力打击的临时力量-汇总累计力量；到期时若拥有聚力打击则保留，否则一次性撤回。
 public sealed class ChargedStrikeStrengthPower : IroncladPower, ITemporaryPower
 {
     private class Data
@@ -24,9 +24,7 @@ public sealed class ChargedStrikeStrengthPower : IroncladPower, ITemporaryPower
     public override PowerType Type => PowerType.Buff;
     //定义能力类型：增益
     public override PowerStackType StackType => PowerStackType.Counter;
-    //定义叠加类型：计数器，层数表示本次临时力量的实际数量
-    public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
-    //定义实例类型：独立实例，不同次授予分别记录数值与到期时间
+    //定义叠加类型：计数器，层数表示累计获得的聚力临时力量
     public AbstractModel OriginModel => ModelDb.Card<ChargedStrike>();
     //定义临时能力来源：聚力打击
     public PowerModel InternallyAppliedPower => ModelDb.Power<StrengthPower>();
@@ -48,7 +46,7 @@ public sealed class ChargedStrikeStrengthPower : IroncladPower, ITemporaryPower
     {
         return new Data();
     }
-    //初始化内部数据：为每个临时力量实例单独记录授予回合
+    //初始化内部数据：记录首次授予回合，避免刚获得的力量在当回合提前消失
 
     public override async Task BeforeApplied(Creature target, decimal amount, Creature applier, CardModel cardSource)
     {
@@ -68,11 +66,14 @@ public sealed class ChargedStrikeStrengthPower : IroncladPower, ITemporaryPower
 
     public override async Task BeforeSideTurnEndEarly(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        if (participants.Contains(Owner) && Owner.Player.PlayerCombatState.TurnNumber > GetInternalData<Data>().grantedTurn)
+        if (participants.Contains(Owner)
+            && Owner.Player.PlayerCombatState.TurnNumber > GetInternalData<Data>().grantedTurn
+            && !Owner.HasPower<ChargedStrikePower>())
         {
+            int strengthToRemove = Amount;
             await PowerCmd.Remove(this);
-            await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, -Amount, Owner, null);
+            await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, -strengthToRemove, Owner, null);
         }
     }
-    //在下个己方回合结束的较早阶段触发：仅撤回本实例记录的力量，授予当回合与敌方回合均不撤回
+    //在己方回合结束的较早阶段触发：首次授予当回合保留；之后若有待结算聚力则续接，否则撤回全部累计力量
 }
